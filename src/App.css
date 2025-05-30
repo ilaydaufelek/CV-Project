@@ -9,3 +9,21 @@
   -ms-overflow-style: none; /* IE ve Edge */
   scrollbar-width: none; /* Firefox */
 }
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.preview-box {
+  animation: fadeInRight 0.5s ease-out;
+ 
+ 
+  
+  
+}

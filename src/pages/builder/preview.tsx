@@ -33,16 +33,18 @@ export default function Preview({formData}:PreviewProps) {
   };
 
   return (
-    <div
-      className="w-[800px] h-screen  bg-black relative z-10 "
+  
+    
+     <div
+      className="w-[800px] h-[1500px]  bg-black relative z-10 "
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      
+       
       <div
         onMouseDown={handleMouseDown}
-        className="absolute bg-white w-[650px] h-[850px] m-6 shadow-md select-none   "
+        className="absolute bg-white w-[650px] h-[850px] xl:m-6  my-6 mr-24 preview-box shadow-md select-none   "
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
@@ -53,5 +55,6 @@ export default function Preview({formData}:PreviewProps) {
         <p>isim {formData.fullName}</p>
       </div>
     </div>
+   
   );
 }

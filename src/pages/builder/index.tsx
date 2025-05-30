@@ -1,11 +1,14 @@
 import { useState } from "react";
 import Sidebar from "./sidebar";
 import Preview from "./preview";
+
 import { useIsMobile } from "../../hooks/use-mobil";
+import Template from "./template";
 
 
 export default function Builder() {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showTemplate,setShowTemplate]=useState(false)
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -27,10 +30,10 @@ export default function Builder() {
            <path  d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,56H80V200H40ZM216,200H96V56H216V200Z">
             </path></svg>
           </button>
-       
+       CV
           <button
             className=" text-white rounded active:scale-95 transition-transform duration-100 "
-            onClick={() => setShowSidebar(!showSidebar)}
+            onClick={() => setShowTemplate(!showTemplate)}
           >
            <svg xmlns="http://www.w3.org/2000/svg"
             width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256">
@@ -42,13 +45,19 @@ export default function Builder() {
 
      
       {showSidebar && (
-        <div className="fixed top-16 left-0 w-full h-[calc(100%-4rem)] bg-white z-50 overflow-y-auto">
+        <div className="fixed top-16 rigt-0  w-full h-[calc(100%-4rem)] bg-black flex justify-center z-50 overflow-y-auto">
           <Sidebar formData={formData} setFormData={setFormData} />
         </div>
       )}
 
-     
-      {!showSidebar && (
+      {showTemplate && (
+          <div className="fixed top-16 rigt-0  w-full h-[calc(100%-4rem)] bg-black flex justify-center z-50 overflow-y-auto">
+          <Template/>
+        </div>
+      ) }
+
+    
+      {!showSidebar && !showTemplate && (
         <div className=" mt-2 ">
          <div className="h-full bg-black" >
            <Preview formData={formData} />
@@ -63,7 +72,7 @@ export default function Builder() {
   return (
     <div className="xl:grid xl:grid-cols-[500px_800px_620px] xl:h-screen lg:grid lg:grid-cols-[400px_500px_420px] lg:h-screen  md:grid md:grid-cols-[400px_500px_420px] md:h-screen ">
       {/* Sidebar */}
-      <div className="bg-black  overflow-y-auto h-screen no-scrollbar">
+      <div className="bg-[#0D0D10]  overflow-y-auto h-screen no-scrollbar">
      
         <Sidebar formData={formData} setFormData={setFormData} />
       </div>
@@ -72,13 +81,13 @@ export default function Builder() {
       <div className="  overflow-y-auto h-screen no-scrollbar w-full min-h-screen bg-black ">
         <div className="h-16 w-[800px] bg-[#101013] font-semibold text-white z-40 fixed flex items-center  justify-center " >
          
-           {formData.fullName} CV</div>
+           {formData.fullName}CV</div>
         <Preview formData={formData} />
       </div>
 
       {/* Diğer */}
-      <div className="bg-black  z-50 overflow-y-auto h-screen no-scrollbar">
-        sss
+      <div className="bg-[#0D0D10]  z-50 overflow-y-auto h-screen no-scrollbar">
+       <Template/>
       </div>
     </div>
   );
