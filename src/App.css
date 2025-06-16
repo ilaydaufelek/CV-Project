@@ -4,7 +4,14 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 40px #0D0D10 inset !important; 
+  -webkit-text-fill-color: #fff !important;
+  border: 1px solid #27272a;
+  outline: none !important;
+  caret-color: white;
+  transition: background-color 9999s ease-in-out 0s;
+}
 .no-scrollbar {
   -ms-overflow-style: none; /* IE ve Edge */
   scrollbar-width: none; /* Firefox */

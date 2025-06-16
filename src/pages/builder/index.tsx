@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Sidebar from "./sidebar";
 import Preview from "./preview";
-
 import { useIsMobile } from "../../hooks/use-mobil";
 import Template from "./template";
+import { useModal } from "../../store/modal/hooks";
+import Modal from "../../modals";
 
 
 export default function Builder() {
@@ -14,6 +15,9 @@ export default function Builder() {
     email: '',
   });
   const mobil = useIsMobile();
+  const modal=useModal()
+  console.log(modal,'bb');
+  
 
   if(mobil){
     return(
@@ -72,6 +76,7 @@ export default function Builder() {
   return (
     <div className="xl:grid xl:grid-cols-[500px_800px_620px] xl:h-screen lg:grid lg:grid-cols-[400px_500px_420px] lg:h-screen  md:grid md:grid-cols-[400px_500px_420px] md:h-screen ">
       {/* Sidebar */}
+       {modal.data && <Modal/> }
       <div className="bg-[#0D0D10]  overflow-y-auto h-screen no-scrollbar">
      
         <Sidebar formData={formData} setFormData={setFormData} />
@@ -89,6 +94,8 @@ export default function Builder() {
       <div className="bg-[#0D0D10]  z-50 overflow-y-auto h-screen no-scrollbar">
        <Template/>
       </div>
+    
     </div>
+    
   );
 }
