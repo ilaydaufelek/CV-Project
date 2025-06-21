@@ -3,6 +3,7 @@ type LanguagesProps={
     close:()=>void
 }
 export default function Languages({close}:LanguagesProps){
+  
     return(
      <div className="bg-white p-4 rounded text-black">
       deneme dil!

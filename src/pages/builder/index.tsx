@@ -5,6 +5,7 @@ import { useIsMobile } from "../../hooks/use-mobil";
 import Template from "./template";
 import { useModal } from "../../store/modal/hooks";
 import Modal from "../../modals";
+import { _removeModal } from "../../store/modal/actions";
 
 
 export default function Builder() {
@@ -14,14 +15,16 @@ export default function Builder() {
     fullName: '',
     email: '',
   });
+
   const mobil = useIsMobile();
   const modal=useModal()
-  console.log(modal,'bb');
+  
   
 
   if(mobil){
     return(
        <div className="overflow-y-auto h-screen no-scrollbar">
+        {modal.data && <Modal/>}
       
       <div className="h-16 w-full bg-[#18181b] font-semibold text-white z-40 fixed top-0 flex items-center justify-center">
         <div className="flex items-center justify-center w-full gap-2">
@@ -50,7 +53,7 @@ export default function Builder() {
      
       {showSidebar && (
         <div className="fixed top-16 rigt-0  w-full h-[calc(100%-4rem)] bg-black flex justify-center z-50 overflow-y-auto">
-          <Sidebar formData={formData} setFormData={setFormData} />
+          <Sidebar formData={formData} setFormData={setFormData}  />
         </div>
       )}
 
@@ -76,10 +79,10 @@ export default function Builder() {
   return (
     <div className="xl:grid xl:grid-cols-[500px_800px_620px] xl:h-screen lg:grid lg:grid-cols-[400px_500px_420px] lg:h-screen  md:grid md:grid-cols-[400px_500px_420px] md:h-screen ">
       {/* Sidebar */}
-       {modal.data && <Modal/> }
+       {modal.data && <Modal/>}
       <div className="bg-[#0D0D10]  overflow-y-auto h-screen no-scrollbar">
      
-        <Sidebar formData={formData} setFormData={setFormData} />
+        <Sidebar formData={formData} setFormData={setFormData}  />
       </div>
 
       {/* Preview */}

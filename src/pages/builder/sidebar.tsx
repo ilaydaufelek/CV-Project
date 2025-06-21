@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef,} from "react";
 import SidebarButtons from "../../components/sidebar-button";
 import { useIsMobile } from "../../hooks/use-mobil";
 import { _setModal } from "../../store/modal/actions";
@@ -13,12 +13,25 @@ type SidebarProps={
     setFormData:React.Dispatch<React.SetStateAction<{
          fullName:string,
         email:string
-    }>> 
+    }>>,
+   
+}
+type Experience = {
+  name: string;
+  startD: string;
+  endD: string;
+};
+type Education={
+  name:string
 }
 
-
 export default function Sidebar({formData,setFormData}:SidebarProps) {
+
+ const resume=JSON.parse(localStorage.getItem('resume')|| '{}')
+ console.log(resume);
  
+ const experiences : Experience[]=resume.experiences || []
+ const education:Education[]=resume.education || []
   const handleClick=(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
 
@@ -91,7 +104,8 @@ const mobil =useIsMobile()
     <div className="bg-[#27272a] h-[1px] w-full xl:my-6 my-4 " />
     <div ref={divRef.summary} className="flex flex-col space-y-2  " >
       <div className="text-white text-[23px] flex items-center gap-4 font-semibold my-4 " >
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 256 256"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM184,96a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,96Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,128Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,160Z">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM184,96a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,96Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,128Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,160Z">
         </path></svg>
         About Me</div>
         <textarea className="text-white w-full border border-[#27272a] p-2 rounded-md outline-none  " name="aboutMe" id=""/>
@@ -100,17 +114,31 @@ const mobil =useIsMobile()
      <div className="bg-[#27272a] h-[1px] w-full xl:my-6 my-4 " />
      <div ref={divRef.experience} className="flex flex-col space-y-2" >
        <div className="text-white text-[23px] flex items-center gap-4 font-semibold my-4 " >
-       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 256 256"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,72v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z">
+       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 256 256">
+       <path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,72v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z">
       </path></svg>
         Experience</div>
-       <button onClick={() => _setModal({}, "Experience")} className="w-full h-24 m-1 outline outline-[#27272a] outline-dotted flex items-center justify-center  hover:bg-[#27272aa2] " >
-          <p className="text-white flex items-center justify-center gap-2 " >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/>
-          </svg> Add New Item
-          </p>
-
+        {experiences.length > 0 ? (
+      experiences.map((exp, i) => (
+        <div key={i} className="text-white p-2 border-b border-[#27272a]">
+          <p>{exp.name}</p>
+          <p>{exp.startD} - {exp.endD}</p>
           
-        </button>
+        </div>
+        
+      ))
+        ):(
+           <button onClick={() => _setModal({}, "Experience")} className="w-full h-24 m-1 outline outline-[#27272a] outline-dotted flex items-center justify-center  hover:bg-[#27272aa2]">
+    <p className="text-white flex items-center justify-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" />
+      </svg>
+      Add New Item
+    </p>
+  </button>
+        )}
+     
+
 
      </div>
 
@@ -119,7 +147,13 @@ const mobil =useIsMobile()
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 256 256"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z">
         </path></svg>
         Education</div>
-        <button onClick={()=>_setModal({},'Education')} className="w-full  h-24 m-1 outline outline-[#27272a] outline-dotted flex items-center justify-center hover:bg-[#27272aa2] " >
+        {education.length >0 ? (
+          education.map((e,index)=>(
+            <div className="text-white" key={index} >{e.name}</div>
+          ))
+
+        ):(
+          <button onClick={()=>_setModal({},'Education')} className="w-full  h-24 m-1 outline outline-[#27272a] outline-dotted flex items-center justify-center hover:bg-[#27272aa2] " >
           <p className="text-white flex items-center justify-center gap-2 " >
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/>
           </svg> Add New Item
@@ -127,6 +161,8 @@ const mobil =useIsMobile()
 
           
         </button>
+        )}
+       
 
      </div>
      <div ref={divRef.skills} className="flex flex-col space-y-2" >
